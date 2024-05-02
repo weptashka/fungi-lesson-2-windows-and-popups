@@ -1,25 +1,23 @@
 ﻿using UnityEngine;
+using System;
 
 namespace Assets.Scripts
 {
     public class DestroyableBlock : BlockBase
     {
-        [SerializeField] private int _blockHitPoints;
-        [SerializeField] private SpriteRenderer _spriteRenderer;
-        [SerializeField] private int _hitNumberForDestroy;
+        public static event Action<int> Destroyed;
+
+
+        [SerializeField] protected int _blockHitPoints;
+        [Min(1)]
+        [SerializeField] protected int _hitNumberForDestroy;
         [Space]
+        [SerializeField] protected SpriteRenderer _crackRenderer;
         [SerializeField] private Sprite[] _sprites;
+     
+
 
         public override BlockType Type => BlockType.Destroyable;
-
-
-        private void Start()
-        {
-            if (_hitNumberForDestroy <= 0) 
-            {
-                _hitNumberForDestroy = 1;
-            }
-        }
 
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -27,28 +25,29 @@ namespace Assets.Scripts
             if (collision.gameObject.TryGetComponent(out BallController ball))
             {
                 _hitNumberForDestroy--;
-                //Debug.Log(_hitNumberForDestroy);
 
                 if (_hitNumberForDestroy <= _sprites.Length)
                 {
                     if (_hitNumberForDestroy == 0)
                     {
-                        //Debug.Log("DESTROYED");
-                        Destroy(gameObject);
+                        gameObject.SetActive(false);
+                        Destroyed?.Invoke(_blockHitPoints);
                     }
                     else
                     {
-                        _spriteRenderer.sprite = _sprites[^_hitNumberForDestroy];
-                        _spriteRenderer.size = new Vector2(1, 1);
+                        _crackRenderer.sprite = _sprites[^_hitNumberForDestroy];
                     }
                 }
             }
         }
 
 
-        public int GetHitPoints()
+
+
+            public int GetHitPoints()
         {
             return _blockHitPoints;
         }
+
     }
 }

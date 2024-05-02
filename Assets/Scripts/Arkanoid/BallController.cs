@@ -4,6 +4,9 @@ namespace Assets.Scripts
 {
     public class BallController : MonoBehaviour
     {
+        private float xRange = 150f;
+        private float speedSquare = 90000f;
+
 
         [SerializeField] private Rigidbody2D _rb;
         [SerializeField] private Vector2 _startForce;
@@ -18,12 +21,12 @@ namespace Assets.Scripts
 
 
             //одинаковая скорость полёта при рандомном X
-            var x = Random.Range(-150f, 150f);
-            var y = Mathf.Sqrt(90000 - x);
+            var x = Random.Range(-xRange, xRange);
+            var y = Mathf.Sqrt(speedSquare - x);
             _startForce = new Vector2(x, y);
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (Input.GetMouseButtonDown(0) && (_rb.velocity.x == 0 || _rb.velocity.y == 0))
             {

@@ -5,5 +5,7 @@
         Start = 0,
         Settings = 1,
         SelectStage = 2,
+        Game = 3,
+        Fail = 4,
     }
 }

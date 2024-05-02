@@ -20,18 +20,13 @@ namespace Assets.Scripts
             _canMove = false;
         }
 
-
-        //с лекции
         public void FixedUpdate()
         {
+            //с лекции
             //_rb.MovePosition(UseKeyboard());
             //_rb.MovePosition(UseMouse());
-        }
 
-
-        //координаты платформы по 0x соответствуют координатам мышки на игровом экране
-        private void Update()
-        { 
+            //координаты платформы по 0x соответствуют координатам мышки на игровом экране
             //платформа не движетс€, пока не полктит м€ч
             if (Input.GetMouseButtonDown(0))
             {
@@ -49,7 +44,6 @@ namespace Assets.Scripts
             }
         }
 
-
         public Vector3 UseKeyboard()
         {
             var axis = Input.GetAxisRaw("Horizontal");
@@ -60,7 +54,6 @@ namespace Assets.Scripts
 
             return newPosition;
         }
-
 
         public Vector3 UseMouse()
         {
