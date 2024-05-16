@@ -7,5 +7,6 @@
         SelectStage = 2,
         Game = 3,
         Fail = 4,
+        Pause = 5,
     }
 }

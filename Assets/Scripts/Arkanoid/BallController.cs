@@ -1,12 +1,11 @@
 using UnityEngine;
 
-namespace Assets.Scripts
+ namespace Assets.Scripts.Arkanoid
 {
     public class BallController : MonoBehaviour
     {
         private float xRange = 150f;
         private float speedSquare = 90000f;
-
 
         [SerializeField] private Rigidbody2D _rb;
         [SerializeField] private Vector2 _startForce;
@@ -19,8 +18,6 @@ namespace Assets.Scripts
             _rb.sharedMaterial = null;
             _rb.gravityScale = 1;
 
-
-            //одинаковая скорость полёта при рандомном X
             var x = Random.Range(-xRange, xRange);
             var y = Mathf.Sqrt(speedSquare - x);
             _startForce = new Vector2(x, y);

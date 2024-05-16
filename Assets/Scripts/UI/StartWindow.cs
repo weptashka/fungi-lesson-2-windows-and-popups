@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,8 +7,6 @@ namespace Assets.Scripts
 {
     public class StartWindow : WindowBase
     {
-        public static event Action LevelStarted;
-
         [SerializeField] private Button _startButton;
         [SerializeField] private Button _settingsButton;
 
@@ -25,19 +23,7 @@ namespace Assets.Scripts
 
         private void OnStartButtonClick()
         {
-            UISystem.Instance.OpenWindow(WindowType.Game, false);
-
-            if (LevelStarted != null)
-            {
-                LevelStarted.Invoke();
-                Debug.Log("INVOKED");
-            }
-            else 
-            {
-                Debug.Log("LevelStarted IS NULL");
-            }
-
-            LevelStarted?.Invoke();
+            UISystem.Instance.OpenWindow(WindowType.SelectStage, false);
         }
         
         private void OnSettingsButtonClick()

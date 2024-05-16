@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 776673010020127868}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2522644391249021639
 SpriteRenderer:
@@ -108,12 +108,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2376659865712056414}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0011, y: -0.0511, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.008, y: -0.081, z: 0.012964326}
+  m_LocalScale: {x: 0.77630925, y: 0.947436, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2376659866084457279}
+  m_Father: {fileID: 776673010020127868}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2376659865712056408
@@ -161,7 +161,7 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 1
+  m_DrawMode: 0
   m_Size: {x: 1.2078636, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -179,10 +179,9 @@ GameObject:
   - component: {fileID: 2376659866084457279}
   - component: {fileID: 2376659866084457276}
   - component: {fileID: 2376659866084457278}
-  - component: {fileID: 2376659866084457277}
   - component: {fileID: 6600602181798147541}
   m_Layer: 0
-  m_Name: InvisibleBlockBrickRed
+  m_Name: DestroyableInvisibleBlockBrickRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -200,7 +199,6 @@ Transform:
   m_LocalScale: {x: 1.5, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2376659865712056409}
   - {fileID: 776673010020127868}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -283,26 +281,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.1293974, y: 0.9519819}
   m_EdgeRadius: 0
---- !u!114 &2376659866084457277
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2376659866084457266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0288ebd2bd0a3d64da4f882b985ee4c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _blockHitPoints: 2
-  _hitNumberForDestroy: 5
-  _crackRenderer: {fileID: 2522644391249021639}
-  _sprites:
-  - {fileID: 21300000, guid: 5267273f4bcdb744a8b9a9c4d988960f, type: 3}
-  - {fileID: 21300000, guid: be6a2404b02942847a8d879173c30a07, type: 3}
-  - {fileID: 21300000, guid: fbcc7b5c2be52eb4882493792a2c7594, type: 3}
-  - {fileID: 21300000, guid: 91534b0df1d3f49478d63ac23eceb87a, type: 3}
 --- !u!114 &6600602181798147541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,6 +302,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: fbcc7b5c2be52eb4882493792a2c7594, type: 3}
   - {fileID: 21300000, guid: 91534b0df1d3f49478d63ac23eceb87a, type: 3}
   _spriteRenderer: {fileID: 2376659865712056408}
+  _blockSprite: {fileID: 21300000, guid: 60715bb4d0eeae94a95b90ed7bfdf53b, type: 3}
 --- !u!1 &2600750547823721872
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,9 +332,10 @@ Transform:
   m_LocalScale: {x: 0.98475015, y: 0.69439495, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2376659865712056409}
   - {fileID: 5944609652779629116}
   m_Father: {fileID: 2376659866084457279}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!331 &5596469381327147160
 SpriteMask:

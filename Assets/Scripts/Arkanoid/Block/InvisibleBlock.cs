@@ -1,29 +1,31 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.Arkanoid.Block
+namespace Assets.Scripts.Arkanoid
 {
     public class InvisibleBlock : DestroyableBlock
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private Sprite _blockSprite;
 
+        private bool _firstCollision;
 
 
-        private bool _firstCollision ;
-
-        private void Start()
+        public override void Start()
         {
-            _firstCollision = true;
+            base.Start();
+            _firstCollision = false;
             _spriteRenderer.sprite = null;
         }
 
-        private void OnCollisionExit2D(Collision2D collision)
+        public override void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.TryGetComponent(out BallController ball) && _firstCollision == true)
+            if (collision.gameObject.TryGetComponent(out BallController ball) && _firstCollision == false)
             {
-                _firstCollision = false;
+                _firstCollision = true;
                 _spriteRenderer.sprite = _blockSprite;
             }
+
+            base.OnCollisionEnter2D(collision);
         }
     }
 }

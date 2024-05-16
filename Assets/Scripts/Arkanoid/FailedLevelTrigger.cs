@@ -1,18 +1,20 @@
-using Assets.Scripts;
 using System;
-
 using UnityEngine;
 
 
-public class FailedLevelTrigger : MonoBehaviour
+namespace Assets.Scripts.Arkanoid
 {
-    public static event Action LevelFailed = delegate { };
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    public class FailedLevelTrigger : MonoBehaviour
     {
-        if (collision.gameObject.TryGetComponent(out BallController ball))
+        public static event Action LevelFailed = delegate { };
+
+
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            LevelFailed?.Invoke();
+            if (collision.gameObject.TryGetComponent(out BallController ball))
+            {
+                LevelFailed?.Invoke();
+            }
         }
     }
 }

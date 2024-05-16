@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts
+﻿namespace Assets.Scripts.Arkanoid
 {
     public class UndestroyableBlock : BlockBase
     {

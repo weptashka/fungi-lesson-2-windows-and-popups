@@ -1,10 +1,14 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.UI
+namespace Assets.Scripts
 {
-    public class LevelFailedPopup : WindowBase
+    public class FailPopup : WindowBase
     {
+        public static event Action RestartedLevel; 
+        public static event Action QuitedLevel; 
+
         [SerializeField] private Button _restartButton;
         [SerializeField] private Button _quitButton;
 
@@ -15,18 +19,17 @@ namespace Assets.Scripts.UI
         private void Start()
         {
             _restartButton.onClick.AddListener(OnClikRestartButton);
-            _restartButton.onClick.AddListener(OnClikQuitButton);
+            _quitButton.onClick.AddListener(OnClikQuitButton);
         }
 
         private void OnClikRestartButton()
         {
-
+            RestartedLevel?.Invoke();
         }
-        
         
         private void OnClikQuitButton()
         {
-
+            QuitedLevel?.Invoke();
         }
     }
 }

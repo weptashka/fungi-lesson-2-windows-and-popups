@@ -1,13 +1,15 @@
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Arkanoid
 {
     public class PlatformController : MonoBehaviour
     {
         [SerializeField] private float _speed = 10f;
         [SerializeField] private Rigidbody2D _rb;
-        [SerializeField] private float _border = 7.1f;
         [SerializeField] private float _sensivity;
+        private Vector3 _leftPoint;
+        private Vector3 _rightPoint;
+        [SerializeField] private SpriteRenderer _boardSpriteRenderer;
         private float _mousePositionDelta;
         private Vector2 _oldMousePosition;
         [Space]
@@ -15,9 +17,16 @@ namespace Assets.Scripts
         private bool _canMove;
 
 
-        private void Start()
+        public void Start()
         {
             _canMove = false;
+            var boardSpriteRendererSize = _boardSpriteRenderer.size;
+            var halfBoardSize = boardSpriteRendererSize.x / 2;
+
+            _leftPoint = _mainCamera.ScreenToWorldPoint(new Vector3(0, 0));
+            _leftPoint.x += halfBoardSize;
+            _rightPoint = _mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, 0));
+            _rightPoint.x -= halfBoardSize;
         }
 
         public void FixedUpdate()
@@ -38,7 +47,7 @@ namespace Assets.Scripts
             {
                 var oldPosition = transform.position;
                 var mouseWorldPosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition).x;
-                mouseWorldPosition = Mathf.Clamp(mouseWorldPosition, -_border, _border); ;
+                mouseWorldPosition = Mathf.Clamp(mouseWorldPosition, _leftPoint.x, _rightPoint.x); ;
                 oldPosition.x = mouseWorldPosition;
                 transform.position = oldPosition;
             }
@@ -50,7 +59,7 @@ namespace Assets.Scripts
 
             var newPosition = transform.position;
             newPosition.x += _speed * Time.deltaTime * axis;
-            newPosition.x = Mathf.Clamp(newPosition.x, -_border, _border);
+            newPosition.x = Mathf.Clamp(newPosition.x, _leftPoint.x, _rightPoint.x);
 
             return newPosition;
         }
@@ -61,7 +70,7 @@ namespace Assets.Scripts
 
             _mousePositionDelta = Input.mousePosition.x - _oldMousePosition.x;
             newPosition.x += _mousePositionDelta * _sensivity * Time.deltaTime;
-            newPosition.x = Mathf.Clamp(newPosition.x, -_border, _border);
+            newPosition.x = Mathf.Clamp(newPosition.x, _leftPoint.x, _rightPoint.x);
 
             _oldMousePosition.x = Input.mousePosition.x;
 
