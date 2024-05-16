@@ -1,50 +1,64 @@
 ﻿using UnityEngine;
+using System;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Arkanoid
 {
     public class DestroyableBlock : BlockBase
     {
-        [SerializeField] private int _blockHitPoints;
-        [SerializeField] private SpriteRenderer _spriteRenderer;
-        [SerializeField] private int _hitNumberForDestroy;
-        [Space]
-        [SerializeField] private Sprite[] _sprites;
+        public static event Action<int> Destroyed;
+
+        //[SerializeField] protected int _blockHitPoints;
+        //[Min(1)]
+        //[SerializeField] protected int _hitNumberForDestroy;
+        //[Space]
+        //[SerializeField] protected Sprite[] _spritesRef;
+
+        [SerializeField] protected SpriteRenderer _blockRenderer;
+        [SerializeField] protected SpriteRenderer _crackRenderer;
+        [SerializeField] private BlockType _blockType;
+
+        private Sprite[] _sprites;
+        private BlockPreset _blockSetting;
+
+        private int _blockHitPoints;
+        private int _hitNumberForDestroy;
 
         public override BlockType Type => BlockType.Destroyable;
 
 
-        private void Start()
+        public virtual void Start()
         {
-            if (_hitNumberForDestroy <= 0) 
-            {
-                _hitNumberForDestroy = 1;
-            }
+            //_sprites = _spritesRef;
+
+            _sprites = SettingsManager.Instance.BlockSettings.Sprites;
+
+            _blockSetting = SettingsManager.Instance.BlockSettings.GetPresetByBlockType(_blockType);
+            _blockHitPoints = _blockSetting.BlockHitpoints;
+            _hitNumberForDestroy = _blockSetting.HitNumberForDestroy;
+            _blockRenderer.sprite = _blockSetting.BlockSprite;
         }
 
-
-        private void OnCollisionEnter2D(Collision2D collision)
+        public virtual void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.TryGetComponent(out BallController ball))
             {
                 _hitNumberForDestroy--;
-                //Debug.Log(_hitNumberForDestroy);
 
                 if (_hitNumberForDestroy <= _sprites.Length)
                 {
                     if (_hitNumberForDestroy == 0)
                     {
-                        //Debug.Log("DESTROYED");
-                        Destroy(gameObject);
+                        gameObject.SetActive(false);
+                        Destroyed?.Invoke(_blockHitPoints);
                     }
                     else
                     {
-                        _spriteRenderer.sprite = _sprites[^_hitNumberForDestroy];
-                        _spriteRenderer.size = new Vector2(1, 1);
+                        Debug.Log($"_hitNumberForDestroy = {_hitNumberForDestroy}");
+                        _crackRenderer.sprite = _sprites[^_hitNumberForDestroy];
                     }
                 }
             }
         }
-
 
         public int GetHitPoints()
         {

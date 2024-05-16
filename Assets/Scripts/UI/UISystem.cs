@@ -1,7 +1,7 @@
-using Assets.Scripts;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts
 {
@@ -37,6 +37,8 @@ namespace Assets.Scripts
             }
 
             OpenWindow(WindowType.Start, false);
+
+            //SceneManager.LoadScene(2);
         }
 
 
@@ -55,6 +57,7 @@ namespace Assets.Scripts
                 windowToOpen.transform.SetAsLastSibling();
             }
 
+            //зачем, если мы, кпримеру, хотим рестартнуть лвл и нажимаем Restart, но окно LevelFailed остаётся поверх
             if (_openedWindows.Contains(windowToOpen))
             {
                 return;
