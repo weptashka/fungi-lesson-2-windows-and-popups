@@ -13,10 +13,11 @@ namespace Assets.Scripts.Arkanoid
 
 
         [SerializeField] private GameObject _gameContent;
-        [Min(1)]
-        [SerializeField] private int _lifes;
+        [Min(3)]
+        [SerializeField] private int _lifesOnStart;
 
         private int _score;
+        private int _lifes;
 
 
         private void Awake()
@@ -52,7 +53,7 @@ namespace Assets.Scripts.Arkanoid
         {
             _score = 0;
             ScoreChanged?.Invoke(_score);
-
+            _lifes = _lifesOnStart;
             LifesSetted?.Invoke(_lifes);
 
             _gameContent.SetActive(true);
@@ -73,7 +74,6 @@ namespace Assets.Scripts.Arkanoid
             {
                 UISystem.Instance.OpenWindow(WindowType.Fail, true);
                 _gameContent.SetActive(false);
-                //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
 
@@ -81,10 +81,10 @@ namespace Assets.Scripts.Arkanoid
         {
             //???
             UISystem.Instance.Close(WindowType.Fail);
-            UISystem.Instance.OpenWindow(WindowType.Game, false);
             SceneManager.LoadScene("GameScene");
             //потому что не из SelectStage выбираем уровень, приходится самим вызывать
             StartWindowOnLevelStarted();
+            UISystem.Instance.OpenWindow(WindowType.Game, false);
             Debug.Log("RESTART");
         }
 
@@ -95,13 +95,6 @@ namespace Assets.Scripts.Arkanoid
             Debug.Log("QUIT");
         }
 
-        private void PausePopupOnQuitedLevel()
-        {
-            SceneManager.LoadScene("GameScene");
-            UISystem.Instance.OpenWindow(WindowType.SelectStage, false);
-            Debug.Log("QUIT TO LEVELS FROM PAUSE");
-        }
-        
         private void PausePopupOnPausedGame()
         {
             UISystem.Instance.OpenWindow(WindowType.Pause, true);
@@ -112,6 +105,13 @@ namespace Assets.Scripts.Arkanoid
         {
             UISystem.Instance.Close(WindowType.Pause);
             Debug.Log("UNPAUSE");
+        }
+
+        private void PausePopupOnQuitedLevel()
+        {
+            SceneManager.LoadScene("GameScene");
+            UISystem.Instance.OpenWindow(WindowType.SelectStage, false);
+            Debug.Log("QUIT TO LEVELS FROM PAUSE");
         }
     }
 }

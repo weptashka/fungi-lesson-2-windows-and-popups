@@ -3217,7 +3217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameContent: {fileID: 2047079940}
-  _lifes: 3
+  _lifesOnStart: 3
 --- !u!1001 &1976561465
 PrefabInstance:
   m_ObjectHideFlags: 0

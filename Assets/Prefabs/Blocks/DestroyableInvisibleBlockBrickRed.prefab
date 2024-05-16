@@ -293,14 +293,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63f14ff4d897a7a4782f161d2b6e3366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _blockHitPoints: 5
-  _hitNumberForDestroy: 5
+  _blockRenderer: {fileID: 2376659865712056408}
   _crackRenderer: {fileID: 2522644391249021639}
-  _sprites:
-  - {fileID: 21300000, guid: 5267273f4bcdb744a8b9a9c4d988960f, type: 3}
-  - {fileID: 21300000, guid: be6a2404b02942847a8d879173c30a07, type: 3}
-  - {fileID: 21300000, guid: fbcc7b5c2be52eb4882493792a2c7594, type: 3}
-  - {fileID: 21300000, guid: 91534b0df1d3f49478d63ac23eceb87a, type: 3}
+  _blockType: 0
   _spriteRenderer: {fileID: 2376659865712056408}
   _blockSprite: {fileID: 21300000, guid: 60715bb4d0eeae94a95b90ed7bfdf53b, type: 3}
 --- !u!1 &2600750547823721872

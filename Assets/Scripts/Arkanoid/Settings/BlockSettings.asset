@@ -17,3 +17,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: be6a2404b02942847a8d879173c30a07, type: 3}
   - {fileID: 21300000, guid: fbcc7b5c2be52eb4882493792a2c7594, type: 3}
   - {fileID: 21300000, guid: 91534b0df1d3f49478d63ac23eceb87a, type: 3}
+  _blockPresets:
+  - _blockType: 0
+    _blockSprite: {fileID: 21300000, guid: 7c973dcc70b70aa46ace291801ab542a, type: 3}
+    _hitNumberForDestroy: 4
+    _blockHitpoints: 3
+  - _blockType: 2
+    _blockSprite: {fileID: 21300000, guid: 0b65ccd199d336d4bb8946c15be9c3fd, type: 3}
+    _hitNumberForDestroy: 5
+    _blockHitpoints: 10

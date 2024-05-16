@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Arkanoid
@@ -8,18 +9,36 @@ namespace Assets.Scripts.Arkanoid
     {
         [SerializeField] private Sprite[] _sprites;
         [Space]
-        [SerializeField] private BlockPreset _blockPreset;
+        [SerializeField] private BlockPreset[] _blockPresets;
 
+        public BlockPreset[] BlockPresets => _blockPresets;
         public Sprite[] Sprites => _sprites;
-    }
 
+        public BlockPreset GetPresetByBlockType(BlockType blockType)
+        {
+            var blockPreset = _blockPresets.FirstOrDefault(x => x.BlockType == blockType);
+
+            if (blockPreset == null)
+            {
+                Debug.LogError("BlockPreset Not Found");
+            }
+
+            return blockPreset;
+        }
+    }
 
     [Serializable]
     public class BlockPreset
     {
         [SerializeField] private BlockType _blockType;
-        [SerializeField] private BlockType _sprite;
-        [SerializeField] private int _life;
-        [SerializeField] private int _pointCount;
+        [SerializeField] private Sprite _blockSprite;
+        [Min(1)]
+        [SerializeField] private int _hitNumberForDestroy;
+        [SerializeField] private int _blockHitpoints;
+
+        public BlockType BlockType => _blockType;
+        public Sprite BlockSprite => _blockSprite;
+        public int HitNumberForDestroy => _hitNumberForDestroy;
+        public int BlockHitpoints => _blockHitpoints;
     }
 }

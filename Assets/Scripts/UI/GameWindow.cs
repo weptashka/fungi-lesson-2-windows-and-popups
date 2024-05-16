@@ -52,6 +52,11 @@ namespace Assets.Scripts.Arkanoid
 
         private void LevelControllerOnLifesSetted(int allLifes)
         {
+            foreach (Transform life in _lifesImagesParent.transform)
+            {
+                Destroy(life.gameObject);
+            }
+
             for (int i = 0; i < allLifes; i++)
             {
                 Instantiate(_lifesImagePrefab, _lifesImagesParent.transform);
