@@ -7,14 +7,11 @@ namespace Assets.Scripts.Arkanoid
 {
     public class GameWindow : WindowBase
     {
-        public static event Action PausedGame;
-
         [SerializeField] TMP_Text _scoreText;
         [SerializeField] TMP_Text _lifesText;
         [SerializeField] GameObject _lifesImagePrefab;
         [SerializeField] GameObject _lifesImagesParent;
         [SerializeField] Button _pauseButton;
-
 
         public override WindowType Type => WindowType.Game;
         public override bool IsPopup => false;
@@ -26,12 +23,13 @@ namespace Assets.Scripts.Arkanoid
 
         private void OnPauseButtonClick()
         {
-            PausedGame?.Invoke();
+            UISystem.Instance.OpenWindow(WindowType.Pause, true);
         }
 
         public override void Open()
         {
             base.Open();
+            
             LevelController.ScoreChanged += LevelControllerOnScoreChanged;
             LevelController.LifesChanged += LevelControllerOnLifesChanged;
             LevelController.LifesSetted += LevelControllerOnLifesSetted;
@@ -39,7 +37,8 @@ namespace Assets.Scripts.Arkanoid
 
         public override void Close()
         {
-            base.Open();
+            base.Close();
+
             LevelController.ScoreChanged -= LevelControllerOnScoreChanged;
             LevelController.LifesChanged -= LevelControllerOnLifesChanged;
             LevelController.LifesSetted -= LevelControllerOnLifesSetted;

@@ -7,14 +7,9 @@ namespace Assets.Scripts.Arkanoid
     {
         public static event Action<int> Destroyed;
 
-        //[SerializeField] protected int _blockHitPoints;
-        //[Min(1)]
-        //[SerializeField] protected int _hitNumberForDestroy;
-        //[Space]
-        //[SerializeField] protected Sprite[] _spritesRef;
-
         [SerializeField] protected SpriteRenderer _blockRenderer;
         [SerializeField] protected SpriteRenderer _crackRenderer;
+        [SerializeField] protected PickableController _pickableController;
         [SerializeField] private BlockType _blockType;
 
         private Sprite[] _sprites;
@@ -28,14 +23,17 @@ namespace Assets.Scripts.Arkanoid
 
         public virtual void Start()
         {
-            //_sprites = _spritesRef;
-
             _sprites = SettingsManager.Instance.BlockSettings.Sprites;
 
             _blockSetting = SettingsManager.Instance.BlockSettings.GetPresetByBlockType(_blockType);
             _blockHitPoints = _blockSetting.BlockHitpoints;
             _hitNumberForDestroy = _blockSetting.HitNumberForDestroy;
             _blockRenderer.sprite = _blockSetting.BlockSprite;
+        }
+
+        public void Setup(PickableController pickableController)
+        {
+            _pickableController = pickableController;
         }
 
         public virtual void OnCollisionEnter2D(Collision2D collision)
@@ -50,6 +48,7 @@ namespace Assets.Scripts.Arkanoid
                     {
                         gameObject.SetActive(false);
                         Destroyed?.Invoke(_blockHitPoints);
+                        _pickableController.OnBlockDestroyed(transform.position);
                     }
                     else
                     {

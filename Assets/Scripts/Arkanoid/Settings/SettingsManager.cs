@@ -6,8 +6,8 @@ namespace Assets.Scripts.Arkanoid
     {
         public static SettingsManager Instance;
 
-        //[SerializeField] private LevelSettings _levelSettings;
-        //public LevelSettings levelSettings => _levelSettings;
+        [SerializeField] private LevelSettings _levelSettings;
+        public LevelSettings LevelSettings => _levelSettings;
 
         [SerializeField] private BlockSettings _blockSettings;
         public BlockSettings BlockSettings => _blockSettings;

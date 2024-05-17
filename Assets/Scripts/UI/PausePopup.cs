@@ -8,7 +8,6 @@ namespace Assets.Scripts.Arkanoid
     public class PausePopup : WindowBase
     {
         public static event Action QuitedLevel;
-        public static event Action StartedGame;
 
         [SerializeField] private Button _playButton;
         [SerializeField] private Button _quitButton;
@@ -36,7 +35,7 @@ namespace Assets.Scripts.Arkanoid
 
         private void OnClikPlayButton()
         {
-            StartedGame?.Invoke();
+            UISystem.Instance.Close(WindowType.Pause); 
         }
 
         private void OnClikQuitButton()

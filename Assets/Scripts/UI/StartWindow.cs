@@ -10,10 +10,8 @@ namespace Assets.Scripts
         [SerializeField] private Button _startButton;
         [SerializeField] private Button _settingsButton;
 
-
         public override WindowType Type => WindowType.Start;
         public override bool IsPopup => false;
-
 
         public void Start()
         {

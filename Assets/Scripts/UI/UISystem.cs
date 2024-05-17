@@ -1,20 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts
 {
     public class UISystem : MonoBehaviour
     {
         [SerializeField] private WindowBase[] _windows;
+        [SerializeField] private List<WindowBase> _openedWindows;
 
         public static UISystem Instance;
         private WindowBase _currentWindow;
-
-        [SerializeField] private List<WindowBase> _openedWindows;
-
-
 
         private void Awake()
         {
@@ -23,7 +19,6 @@ namespace Assets.Scripts
                 Instance = this;
             }
         }
-
 
         private void Start()
         {
@@ -37,11 +32,7 @@ namespace Assets.Scripts
             }
 
             OpenWindow(WindowType.Start, false);
-
-            //SceneManager.LoadScene(2);
         }
-
-
 
         public void OpenWindow(WindowType windowType, bool setAsLastSibling)
         {
@@ -57,7 +48,6 @@ namespace Assets.Scripts
                 windowToOpen.transform.SetAsLastSibling();
             }
 
-            //зачем, если мы, кпримеру, хотим рестартнуть лвл и нажимаем Restart, но окно LevelFailed остаётся поверх
             if (_openedWindows.Contains(windowToOpen))
             {
                 return;
@@ -80,7 +70,6 @@ namespace Assets.Scripts
             _currentWindow = windowToOpen;
             _openedWindows.Add(windowToOpen);
         }
-
 
         public void Close(WindowType windowType)
         {
