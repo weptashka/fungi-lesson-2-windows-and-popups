@@ -35,10 +35,12 @@ namespace Assets.Scripts.Arkanoid
         [Min(1)]
         [SerializeField] private int _hitNumberForDestroy;
         [SerializeField] private int _blockHitpoints;
+        [SerializeField] private bool _isGeneratesBonus;
 
         public BlockType BlockType => _blockType;
         public Sprite BlockSprite => _blockSprite;
         public int HitNumberForDestroy => _hitNumberForDestroy;
         public int BlockHitpoints => _blockHitpoints;
+        public bool IsGeneratedBonus => _isGeneratesBonus;
     }
 }

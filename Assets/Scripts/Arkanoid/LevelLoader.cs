@@ -19,6 +19,11 @@ namespace Assets.Scripts.Arkanoid
             }
         }
 
+        public void LoadScene(int levelIndex)
+        {
+            SceneManager.LoadScene(_scenesPath + "Scene" + levelIndex + ".unity");
+        }
+
         public void LoadScene(string sceneName)
         {
             SceneManager.LoadScene(_scenesPath + sceneName + ".unity");

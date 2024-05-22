@@ -10,9 +10,9 @@ namespace Assets.Scripts.Arkanoid
         private bool _firstCollision;
 
 
-        public override void Start()
+        public override void Awake()
         {
-            base.Start();
+            base.Awake();
             _firstCollision = false;
             _spriteRenderer.sprite = null;
         }

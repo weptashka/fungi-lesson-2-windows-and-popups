@@ -21,11 +21,12 @@ namespace Assets.Scripts
             _backButton.onClick.AddListener(OnBackButtonClick);
 
             var levelSettingsLevelNames = SettingsManager.Instance.LevelSettings.LevelNames;
+
             for (int i = 0; i < levelSettingsLevelNames.Length; i++)
             { 
                 SelectLevelCeil selectLevelSeil = Instantiate(_ceilPrefab, _ceilParent);
 
-                selectLevelSeil.Setup(levelSettingsLevelNames[i], i+1, OnCeilClicked);
+                selectLevelSeil.Setup(i, OnCeilClicked);
             }
         }
 

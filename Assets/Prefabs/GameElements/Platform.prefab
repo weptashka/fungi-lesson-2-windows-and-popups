@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7706264251370980641}
   - component: {fileID: 7706264251370980640}
   - component: {fileID: 7706264251370980652}
+  - component: {fileID: 1634185643878929123}
   m_Layer: 0
   m_Name: Platform
   m_TagString: Untagged
@@ -146,8 +147,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5867d68a2ac3d0d4899de6775d46bf76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 10
+  _platformSpriteRenderer: {fileID: 7706264251370980642}
   _rb: {fileID: 7706264251370980640}
+  _speed: 10
   _sensivity: 0.5
-  _boardSpriteRenderer: {fileID: 7706264251370980642}
   _mainCamera: {fileID: 0}
+--- !u!114 &1634185643878929123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7706264251370980647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43a4ce5506d50e84db7166e3cbcbd37a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <AffectedType>k__BackingField: 0

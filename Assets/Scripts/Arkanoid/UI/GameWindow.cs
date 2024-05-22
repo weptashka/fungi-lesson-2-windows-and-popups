@@ -7,11 +7,16 @@ namespace Assets.Scripts.Arkanoid
 {
     public class GameWindow : WindowBase
     {
-        [SerializeField] TMP_Text _scoreText;
-        [SerializeField] TMP_Text _lifesText;
-        [SerializeField] GameObject _lifesImagePrefab;
-        [SerializeField] GameObject _lifesImagesParent;
-        [SerializeField] Button _pauseButton;
+        [Header("Text")]
+        [SerializeField] private TMP_Text _scoreText;
+        [SerializeField] private TMP_Text _lifesText;
+
+        [Header("Prefabs")]
+        [SerializeField] private GameObject _lifesImagePrefab;
+        [SerializeField] private GameObject _lifesImagesParent;
+
+        [Header("Buttons")]
+        [SerializeField] private Button _pauseButton;
 
         public override WindowType Type => WindowType.Game;
         public override bool IsPopup => false;

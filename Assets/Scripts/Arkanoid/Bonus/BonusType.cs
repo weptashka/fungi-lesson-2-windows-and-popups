@@ -4,6 +4,10 @@ namespace Assets.Scripts.Arkanoid
     {
         Enlarge = 0,
         Shorten = 1,
-        Type2 = 2,
+        PlusLife = 2,
+        MinusLife = 3,
+        BigBall = 4,
+        SmallBall = 5,
+        MultiplyBall = 6,
     }
 }

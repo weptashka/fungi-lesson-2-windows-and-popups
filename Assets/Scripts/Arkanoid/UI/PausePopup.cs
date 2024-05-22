@@ -12,10 +12,8 @@ namespace Assets.Scripts.Arkanoid
         [SerializeField] private Button _playButton;
         [SerializeField] private Button _quitButton;
 
-
         public override WindowType Type => WindowType.Pause;
         public override bool IsPopup => true;
-
 
         private void Start()
         {

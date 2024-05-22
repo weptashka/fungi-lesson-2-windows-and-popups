@@ -10,7 +10,7 @@ namespace Assets.Scripts.Arkanoid
         [SerializeField] private TMP_Text _levelIndexText;
         [SerializeField] private Button _levelButton;
 
-        private string _sceneName;
+        private int _sceneIndex;
         private Action _callBack;
 
         private void Start()
@@ -18,16 +18,16 @@ namespace Assets.Scripts.Arkanoid
             _levelButton.onClick.AddListener(OnLevelButtonClick);
         }
 
-        public void Setup(string sceneName, int sceneIndex, Action callBack)
+        public void Setup(int sceneIndex, Action callBack)
         {
-            _sceneName = sceneName;
-            _levelIndexText.text = sceneIndex.ToString();
+            _sceneIndex = sceneIndex;
+            _levelIndexText.text = (sceneIndex + 1).ToString();
             _callBack = callBack;
         }
 
         private void OnLevelButtonClick()
         {
-            LevelLoader.Instance.LoadScene(_sceneName);
+            LevelLoader.Instance.LoadScene(_sceneIndex + 1);
             UISystem.Instance.OpenWindow(WindowType.Game, false);
             _callBack?.Invoke();
         }

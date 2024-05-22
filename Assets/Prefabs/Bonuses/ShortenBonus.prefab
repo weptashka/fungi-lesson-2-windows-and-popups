@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &7029570404891687731
+--- !u!1001 &3043572730684115318
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -9,39 +9,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 216819113104614760, guid: 4e5c40e9b7d366b479925677d0dc46a0, type: 3}
       propertyPath: m_Radius
-      value: 0.44489452
+      value: 0.45018533
       objectReference: {fileID: 0}
     - target: {fileID: 216819113104614760, guid: 4e5c40e9b7d366b479925677d0dc46a0, type: 3}
       propertyPath: m_Offset.x
-      value: 0.011729197
+      value: 0.007970363
       objectReference: {fileID: 0}
     - target: {fileID: 216819113104614760, guid: 4e5c40e9b7d366b479925677d0dc46a0, type: 3}
       propertyPath: m_Offset.y
-      value: 0.01315544
+      value: 0.013948113
       objectReference: {fileID: 0}
     - target: {fileID: 4151332199521488443, guid: 4e5c40e9b7d366b479925677d0dc46a0, type: 3}
       propertyPath: m_Name
-      value: EnlargeBonus
+      value: ShortenBonus
       objectReference: {fileID: 0}
     - target: {fileID: 5893190593988457163, guid: 4e5c40e9b7d366b479925677d0dc46a0, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: cec2c9c6f957aa746ae50d13c15f4cb4, type: 3}
+      objectReference: {fileID: 21300000, guid: d12a0c8b287aec94886c6a9264ec3761, type: 3}
     - target: {fileID: 6556588186116290330, guid: 4e5c40e9b7d366b479925677d0dc46a0, type: 3}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6556588186116290330, guid: 4e5c40e9b7d366b479925677d0dc46a0, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6556588186116290330, guid: 4e5c40e9b7d366b479925677d0dc46a0, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6556588186116290330, guid: 4e5c40e9b7d366b479925677d0dc46a0, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6556588186116290330, guid: 4e5c40e9b7d366b479925677d0dc46a0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -85,30 +73,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e5c40e9b7d366b479925677d0dc46a0, type: 3}
---- !u!50 &4143942011563064777 stripped
-Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: -2878872992473790726, guid: 4e5c40e9b7d366b479925677d0dc46a0, type: 3}
-  m_PrefabInstance: {fileID: 7029570404891687731}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6346262015848510728 stripped
+--- !u!1 &1414288483507275597 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4151332199521488443, guid: 4e5c40e9b7d366b479925677d0dc46a0, type: 3}
-  m_PrefabInstance: {fileID: 7029570404891687731}
+  m_PrefabInstance: {fileID: 3043572730684115318}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &265952501309623605
+--- !u!114 &1445802738477670505
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6346262015848510728}
+  m_GameObject: {fileID: 1414288483507275597}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f6009a60bb333c4dad8189b0b0d4272, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ed23451c3da4404a801885566ff030f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: -2
-  _rb: {fileID: 4143942011563064777}
+  _rb: {fileID: 8228288732707180428}
   <AffectedType>k__BackingField: 0
   <Intensivity>k__BackingField: 50
-  _addedScale: 0.2
+  _substractedScale: 0.2
+--- !u!50 &8228288732707180428 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: -2878872992473790726, guid: 4e5c40e9b7d366b479925677d0dc46a0, type: 3}
+  m_PrefabInstance: {fileID: 3043572730684115318}
+  m_PrefabAsset: {fileID: 0}

@@ -2,16 +2,16 @@
 
 namespace Assets.Scripts.Arkanoid
 {
-    public class EnlargeBonus : BonusBase
+    public class SmallBallBonus : BonusBase
     {
-        [SerializeField] private float _addedScale;
+        [SerializeField] private float _multipliedScale;
 
-        public override BonusType BonusType => BonusType.Enlarge;
+        public override BonusType BonusType => BonusType.SmallBall;
 
         protected override void ApplyEffect(AffectedPicker _pickableEffecter)
         {
             var transformLocalScale = _pickableEffecter.transform.localScale;
-            transformLocalScale.x += _addedScale;
+            transformLocalScale *= -_multipliedScale;
             _pickableEffecter.transform.localScale = transformLocalScale;
         }
     }

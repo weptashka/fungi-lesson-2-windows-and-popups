@@ -16,10 +16,14 @@ namespace Assets.Scripts.Arkanoid
             _levelLoader.Init();
 
 
-            _levelLoader.LoadScene(_settingsManager.LevelSettings.UISceneName);
+            //_levelLoader.LoadScene(_settingsManager.LevelSettings.UISceneName);
+            LevelLoader.Instance.LoadScene(_settingsManager.LevelSettings.UISceneName);
             //SceneManager.LoadScene(_settingsManager.LevelSettings.UISceneName);
             //SceneManager.LoadScene("GameScene", LoadSceneMode.Additive);
         }
+
+
+
 
         //[SerializeField] private SettingsManager _settingsManager;
         //[SerializeField] private LevelLoader _levelLoader;

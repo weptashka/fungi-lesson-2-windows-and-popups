@@ -240,7 +240,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cfd5b7847338e147a7fa2b0bf38cb34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _uiSceneName: Assets/Scenes/UI.unity
   _settingsManager: {fileID: 66506123}
   _levelLoader: {fileID: 1968507977}
 --- !u!1 &251666188

@@ -7,6 +7,7 @@ namespace Assets.Scripts.Arkanoid
     public class LevelSettings : ScriptableObject
     {
         [SerializeField] private string _uiSceneName;
+
         [FormerlySerializedAs("_levelName")]
         [SerializeField] private string[] _levelNames;
 

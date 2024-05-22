@@ -1,7 +1,5 @@
 using UnityEngine;
 using System;
-using UnityEngine.SceneManagement;
-
 
 namespace Assets.Scripts.Arkanoid
 {
@@ -11,14 +9,12 @@ namespace Assets.Scripts.Arkanoid
         public static event Action<int> LifesChanged;
         public static event Action<int> LifesSetted;
 
-
         [SerializeField] private GameObject _gameContent;
         [Min(3)]
         [SerializeField] private int _lifesOnStart;
 
         private int _score;
         private int _lifes;
-
 
         private void Awake()
         {
