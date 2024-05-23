@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LevelSettings
   m_EditorClassIdentifier: 
   _uiSceneName: UI
-  _levelNames:
-  - Scene1
-  - Scene2
-  - Scene3
+  _gameSceneName: Scene1
+  _levelPefabs:
+  - {fileID: 7532745319394169954, guid: 048a25ea64f287a4f8dda84a248ec8c2, type: 3}
+  - {fileID: 3757635608414879913, guid: 80fb3628d884dd5478c407cecfc2ddbd, type: 3}

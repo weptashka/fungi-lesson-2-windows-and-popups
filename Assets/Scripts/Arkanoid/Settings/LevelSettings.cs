@@ -7,18 +7,13 @@ namespace Assets.Scripts.Arkanoid
     public class LevelSettings : ScriptableObject
     {
         [SerializeField] private string _uiSceneName;
+        [SerializeField] private string _gameSceneName;
 
-        [FormerlySerializedAs("_levelName")]
-        [SerializeField] private string[] _levelNames;
-
-        public string UISceneName => _uiSceneName;
-        public string[] LevelNames => _levelNames;
+        [FormerlySerializedAs("_levelPrefabs")]
+        [SerializeField] private GameObject[] _levelPefabs;
         
-
-        //[SerializeField] private string _gameSceneName;
-        //[SerializeField] private GameObject[] _levels;
-
-        //public string GameSceneName => _gameSceneName;
-        //public GameObject[] Levels => _levels;
+        public string UISceneName => _uiSceneName;
+        public string GameSceneName => _gameSceneName;
+        public GameObject[] LevelPrefabs => _levelPefabs;
     }
 }

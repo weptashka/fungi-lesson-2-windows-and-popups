@@ -11,19 +11,23 @@ namespace Assets.Scripts.Arkanoid
         [SerializeField] private Rigidbody2D _rb;
         [SerializeField] private float _speed = 10f;
         [SerializeField] private float _sensivity;
-        [Space]
-        [SerializeField] private Camera _mainCamera;
+        
+        private Camera _mainCamera;
+
+        public Camera MainCamera
+        { 
+            get { return _mainCamera; }
+            set { _mainCamera = value; }
+        }
 
         private Vector3 _leftPoint;
         private Vector3 _rightPoint;
         private float _mousePositionDelta;
         private Vector2 _oldMousePosition;
         private string _horizontalAxis = "Horizontal";
-        private int _platformScale;
 
         public void Start()
         {
-            _platformScale = 1;
             CountPlatformSize();
         }
 

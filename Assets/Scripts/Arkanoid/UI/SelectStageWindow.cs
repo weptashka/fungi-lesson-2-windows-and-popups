@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System;
 using Assets.Scripts.Arkanoid;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts
 {
@@ -20,10 +21,19 @@ namespace Assets.Scripts
         {
             _backButton.onClick.AddListener(OnBackButtonClick);
 
-            var levelSettingsLevelNames = SettingsManager.Instance.LevelSettings.LevelNames;
+            //var levelSettingsLevelNames = SettingsManager.Instance.LevelSettings.LevelNames;
 
-            for (int i = 0; i < levelSettingsLevelNames.Length; i++)
-            { 
+            //for (int i = 0; i < levelSettingsLevelNames.Length; i++)
+            //{ 
+            //    SelectLevelCeil selectLevelSeil = Instantiate(_ceilPrefab, _ceilParent);
+
+            //    selectLevelSeil.Setup(i, OnCeilClicked);
+            //}
+
+            var levelSettingsLevelPrefabs = SettingsManager.Instance.LevelSettings.LevelPrefabs;
+
+            for (int i = 0; i < levelSettingsLevelPrefabs.Length; i++)
+            {
                 SelectLevelCeil selectLevelSeil = Instantiate(_ceilPrefab, _ceilParent);
 
                 selectLevelSeil.Setup(i, OnCeilClicked);
@@ -32,8 +42,19 @@ namespace Assets.Scripts
 
         private void OnCeilClicked()
         {
+            //LevelLoader.Instance.LoadScene(SettingsManager.Instance.LevelSettings.GameSceneName);
+
             UISystem.Instance.OpenWindow(WindowType.Game, false);
-            LevelStarted?.Invoke();
+
+            if (LevelStarted == null)
+            {
+                Debug.Log("LevelStarted NOT INVOKED");
+            }
+            else 
+            {
+                Debug.Log("LevelStarted INVOKED");
+                LevelStarted?.Invoke();
+            }
         }
 
         private void OnBackButtonClick()

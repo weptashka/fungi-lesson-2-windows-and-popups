@@ -24,7 +24,7 @@ namespace Assets.Scripts
         {
             _windows = GetComponentsInChildren<WindowBase>(true);
 
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
 
             foreach (var window in _windows)
             {

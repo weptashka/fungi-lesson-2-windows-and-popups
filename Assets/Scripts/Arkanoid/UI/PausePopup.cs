@@ -38,7 +38,16 @@ namespace Assets.Scripts.Arkanoid
 
         private void OnClikQuitButton()
         {
-            QuitedLevel?.Invoke();
+            if (QuitedLevel == null)
+            {
+                Debug.Log("QuitedLevel WASN'T INVOKED");
+            }
+            else 
+            {
+                QuitedLevel?.Invoke();
+                Debug.Log("QuitedLevel INVOKED");
+            }
+
         }
     }
 }
