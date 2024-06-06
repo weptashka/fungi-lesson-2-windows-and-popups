@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Arkanoid 
@@ -12,6 +14,7 @@ namespace Assets.Scripts.Arkanoid
         [SerializeField] private int _maxRange;
         [Space]
         [SerializeField] private BonusBase[] _bonuses;
+        [SerializeField] private GameObject _bonusParent;
 
         private DestroyableBlock[] _destroyableBlock;
         private int _destroyBlockCount;
@@ -25,27 +28,38 @@ namespace Assets.Scripts.Arkanoid
         private int _touchesAfterShorten = 0;
         private int _touchesAfterBigBall = 0;
 
-        private void Awake()
+        private void Start()
         {
-            _destroyableBlock = _blockParent.GetComponentsInChildren<DestroyableBlock>();
 
-            foreach (var block in _destroyableBlock)
-            {
-                if (block.IsGeneratesBonus)
-                {
-                    block.Setup(this);
-                }
-            }
-
-            _bonusesIntensivity = new float[_bonuses.Length];
-
-            IntensivityInProcentCount();
         }
+
+
 
         private void OnEnable()
         {
             BonusBase.BonusPicked += BonusBaseOnBonusPicked;
             PlatformController.BallTochedPlatform += PlatformControllerOnBallTochedPlatform;
+            LevelLoader.LevelLoaded += LevelLoaderLevelLoaded;
+            LevelLoader.LevelClosed += LevelLoader_LevelClosed;
+        }
+
+        private void LevelLoader_LevelClosed()
+        {
+            var bonuses = _bonusParent.GetComponentsInChildren<BonusBase>();
+
+            for (int i = 0; i < bonuses.Length; i++)
+            {
+                Destroy(bonuses[i].gameObject);
+            }
+        }
+        
+        private void LevelLoaderLevelLoaded()
+        {
+            SetupBloks();
+
+            _bonusesIntensivity = new float[_bonuses.Length];
+
+            IntensivityInProcentCount();
         }
 
         private void BonusBaseOnBonusPicked(BonusType bonusType)
@@ -61,6 +75,19 @@ namespace Assets.Scripts.Arkanoid
                 case BonusType.BigBall:
                     _touchesAfterBigBall = 0;
                     break;
+            }
+        }
+
+        private void SetupBloks()
+        {
+            _destroyableBlock = LevelLoader.Instance.CurrentLevel.GetComponentsInChildren<DestroyableBlock>();
+
+            foreach (var block in _destroyableBlock)
+            {
+                if (block.IsGeneratesBonus)
+                {
+                    block.Setup(this);
+                }
             }
         }
 
@@ -115,7 +142,9 @@ namespace Assets.Scripts.Arkanoid
             Debug.Log($"MIN = {minIndex}");
             Debug.Log($"_bonuses[min], {_bonuses[minIndex]}");
 
-            Instantiate(_bonuses[minIndex], position, Quaternion.identity);
+            Instantiate(_bonuses[minIndex], position, Quaternion.identity, _bonusParent.transform);
+
+
         }
 
         private void IntensivityInProcentCount()

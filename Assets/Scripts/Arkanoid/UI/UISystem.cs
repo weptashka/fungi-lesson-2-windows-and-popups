@@ -48,23 +48,23 @@ namespace Assets.Scripts
                 windowToOpen.transform.SetAsLastSibling();
             }
 
-            if (_openedWindows.Contains(windowToOpen))
+            if (_openedWindows.Contains(windowToOpen) && windowToOpen.IsPopup)
             {
                 return;
             }
 
-            if (!windowToOpen.IsPopup)
+
+            if (_currentWindow != null)
             {
-                if (_currentWindow != null)
+                foreach (var window in _openedWindows)
                 {
-                    foreach (var window in _openedWindows)
-                    {
-                        window.Close();
-                    }
-                    _currentWindow.Close();
+                    window.Close();
                 }
-                _openedWindows.Clear();
+                _currentWindow.Close();
             }
+            _openedWindows.Clear();
+
+
 
             windowToOpen.Open();
             _currentWindow = windowToOpen;

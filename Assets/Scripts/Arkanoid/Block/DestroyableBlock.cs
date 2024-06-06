@@ -28,7 +28,6 @@ namespace Assets.Scripts.Arkanoid
 
         public virtual void Awake()
         {
-            IsGeneratesBonus = false;
             _sprites = SettingsManager.Instance.BlockSettings.Sprites;
 
             _blockSetting = SettingsManager.Instance.BlockSettings.GetPresetByBlockType(_blockType);

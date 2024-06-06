@@ -17,7 +17,7 @@ namespace Assets.Scripts.Arkanoid
         private void Awake()
         {
             _settingsManager.Init();
-            //_levelLoader.Init();
+            _levelLoader.Init();
             //_playerController.Init();
             //_levelController.Init();
 

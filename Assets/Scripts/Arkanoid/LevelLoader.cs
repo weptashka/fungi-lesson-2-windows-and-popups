@@ -19,6 +19,9 @@ namespace Assets.Scripts.Arkanoid
         private GameObject _currentLevel;
         public GameObject CurrentLevel => _currentLevel;
 
+
+        private int _currentLevelIndex = -1;
+
         public void Init()
         {
             if (Instance == null)
@@ -42,6 +45,25 @@ namespace Assets.Scripts.Arkanoid
 
             _currentLevel = Instantiate(SettingsManager.Instance.LevelSettings.LevelPrefabs[levelIndex], _levelParent);
             LevelLoaded?.Invoke();
+
+            _currentLevelIndex = levelIndex;
+        }
+
+        public void ReloadLevel()
+        {
+            if (_currentLevelIndex == -1)
+            {
+                return;
+            }
+
+            if (_currentLevel)
+            {
+                Destroy(_currentLevel);
+                LevelClosed?.Invoke();
+            }
+
+            _currentLevel = Instantiate(SettingsManager.Instance.LevelSettings.LevelPrefabs[_currentLevelIndex], _levelParent);
+            LevelLoaded?.Invoke();
         }
 
         public void HideLevel()
@@ -50,40 +72,6 @@ namespace Assets.Scripts.Arkanoid
 
             LevelClosed?.Invoke();
         }
-
-
-
-
-
-
-        //public static event Action LevelClosed;
-        //public static event Action LevelLoaded;
-
-        //[SerializeField] private Transform _levelParent;
-
-        //private GameObject _currentLevel;
-        //private LevelSettings _levelSettings;
-
-        //public GameObject CurrentLevel => _currentLevel;
-
-        //public void LoadLevel(int levelIndex)
-        //{
-        //    if (_currentLevel)
-        //    {
-        //        Destroy(_currentLevel);
-        //        LevelClosed?.Invoke();
-        //    }
-
-        //    _currentLevel = Instantiate(_levelSettings.Levels[levelIndex], _levelParent);
-        //    LevelLoaded?.Invoke();
-        //}
-
-        //public void HideLevel()
-        //{
-        //    _currentLevel.SetActive(false);
-
-        //    LevelClosed?.Invoke();
-        //}
 
     }
 }

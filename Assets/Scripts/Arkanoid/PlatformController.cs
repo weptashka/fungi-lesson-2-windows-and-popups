@@ -11,7 +11,14 @@ namespace Assets.Scripts.Arkanoid
         [SerializeField] private Rigidbody2D _rb;
         [SerializeField] private float _speed = 10f;
         [SerializeField] private float _sensivity;
-        
+
+        [SerializeField] private Transform _ballInitPoint;
+
+        public Transform BallInitPoint 
+        {
+            get { return _ballInitPoint; }
+        }
+
         private Camera _mainCamera;
 
         public Camera MainCamera

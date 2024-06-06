@@ -7,30 +7,39 @@ namespace Assets.Scripts.Arkanoid
     {
 
         [Header("Prefabs")]
-        [SerializeField] private PlatformController _playerPlatform;
-        [SerializeField] private BallController _playerBall;
+        [SerializeField] private PlatformController _playerPlatformPrefab;
+        [SerializeField] private BallController _playerBallPrefab;
         [Header("Game Object")]
         [SerializeField] private GameObject _playerParent;
         [Header("Main Camera For Platform")]
         [SerializeField] private Camera _mainCamera;
 
-        private PlatformController _currentPlatform;
-        private BallController _currentBall;
+        public PlatformController _currentPlatform;
+        public BallController _currentBall;
 
         private void OnEnable()
         {
-            SelectStageWindow.LevelStarted += StartWindowOnLevelStarted;
+            LevelLoader.LevelLoaded += StartWindowOnLevelStarted;
+            LevelLoader.LevelClosed += LevelLoader_LevelClosed;
+        }
+
+        private void LevelLoader_LevelClosed()
+        {
+            DestroyPlatform();
+            DestroyBall();
         }
 
         private void OnDisable()
         {
-            SelectStageWindow.LevelStarted -= StartWindowOnLevelStarted;
+            LevelLoader.LevelLoaded -= StartWindowOnLevelStarted;
+            LevelLoader.LevelClosed -= LevelLoader_LevelClosed;
+
         }
 
         private void StartWindowOnLevelStarted()
         {
-            CreateBall();
             CreatePlatform(_mainCamera);
+            CreateBall();
         }
 
         public void CreatePlatform(Camera mainCamera) 
@@ -40,7 +49,7 @@ namespace Assets.Scripts.Arkanoid
                 Destroy(_currentPlatform);
             }
 
-            _currentPlatform = Instantiate(_playerPlatform, _playerParent.transform);
+            _currentPlatform = Instantiate(_playerPlatformPrefab, _playerParent.transform);
             _currentPlatform.MainCamera = _mainCamera;
         }
         
@@ -51,17 +60,23 @@ namespace Assets.Scripts.Arkanoid
                 Destroy(_currentBall);
             }
 
-            _currentBall = Instantiate(_playerBall);
+            _currentBall = Instantiate(_playerBallPrefab, _currentPlatform.BallInitPoint);
         }
 
         public void DestroyPlatform() 
         {
-            Destroy(_currentPlatform);
+            if (_currentPlatform != null)
+            {
+                Destroy(_currentPlatform.gameObject);
+            }
         }
         
         public void DestroyBall() 
         {
-            Destroy(_currentBall);
+            if (_currentBall != null)
+            {
+                Destroy(_currentBall.gameObject);
+            }
         }
     }
 }

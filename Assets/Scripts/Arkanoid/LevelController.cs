@@ -83,23 +83,21 @@ namespace Assets.Scripts.Arkanoid
 
         private void FailPopupOnRestartedLevel()
         {
-            UISystem.Instance.Close(WindowType.Fail);
-            //SceneManager.LoadScene("GameScene");
+            LevelLoader.Instance.ReloadLevel();
             StartWindowOnLevelStarted();
             UISystem.Instance.OpenWindow(WindowType.Game, false);
         }
 
         private void FailPopupOnQuitedLevel()
         {
-            //SceneManager.LoadScene("GameScene");
+            LevelLoader.Instance.HideLevel();
             UISystem.Instance.OpenWindow(WindowType.Start, false);
         }
 
         private void PausePopupOnQuitedLevel()
         {
-            Debug.Log("Quitted from pause");
+            LevelLoader.Instance.HideLevel();
             UISystem.Instance.OpenWindow(WindowType.SelectStage, false);
-            SceneManager.LoadScene(SettingsManager.Instance.LevelSettings.GameSceneName);
         }
     }
 }

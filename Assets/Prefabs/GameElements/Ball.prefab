@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8823478767401877003}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.9272005, y: -0.13353986, z: 0.061771568}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -143,7 +143,6 @@ MonoBehaviour:
   _startForce: {x: 0, y: 0}
   _parentPlatform: {fileID: 7706264251370980643, guid: 9e4704ea319175744a04dd142b84acdb, type: 3}
   _platformSpriteRenderer: {fileID: 7706264251370980642, guid: 9e4704ea319175744a04dd142b84acdb, type: 3}
-  _parentGameContent: {fileID: 0}
 --- !u!114 &4212817242409747491
 MonoBehaviour:
   m_ObjectHideFlags: 0

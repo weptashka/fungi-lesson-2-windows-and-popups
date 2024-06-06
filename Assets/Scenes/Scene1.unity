@@ -497,6 +497,7 @@ MonoBehaviour:
   - {fileID: 265952501309623605, guid: 3c50e47879e55ca458e1ffc671a957dd, type: 3}
   - {fileID: 1445802738477670505, guid: 98a44ebeafb991f4ca5495cf2e879eb2, type: 3}
   - {fileID: -6350140898358726455, guid: fec5d0f39f0c6af4e9faa89514b5ba49, type: 3}
+  _bonusParent: {fileID: 1688397937}
 --- !u!1 &861927057
 GameObject:
   m_ObjectHideFlags: 0
@@ -786,10 +787,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bb58ec173f90b2499ee14ce2a9e29bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerPlatform: {fileID: 7706264251370980652, guid: 9e4704ea319175744a04dd142b84acdb, type: 3}
-  _playerBall: {fileID: 8823478767401877008, guid: debefc33d81a8cc4a9baf89bb71baa6a, type: 3}
+  _playerPlatformPrefab: {fileID: 7706264251370980652, guid: 9e4704ea319175744a04dd142b84acdb, type: 3}
+  _playerBallPrefab: {fileID: 8823478767401877008, guid: debefc33d81a8cc4a9baf89bb71baa6a, type: 3}
   _playerParent: {fileID: 2047079940}
   _mainCamera: {fileID: 861927059}
+  _currentPlatform: {fileID: 0}
+  _currentBall: {fileID: 0}
 --- !u!1 &1784247898
 GameObject:
   m_ObjectHideFlags: 0
