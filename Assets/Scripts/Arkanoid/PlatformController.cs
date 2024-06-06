@@ -1,61 +1,77 @@
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Arkanoid
 {
     public class PlatformController : MonoBehaviour
     {
-        [SerializeField] private float _speed = 10f;
+        public static event Action BallTochedPlatform;
+
+        [SerializeField] private SpriteRenderer _platformSpriteRenderer;
         [SerializeField] private Rigidbody2D _rb;
+        [SerializeField] private float _speed = 10f;
         [SerializeField] private float _sensivity;
+
+        [SerializeField] private Transform _ballInitPoint;
+
+        public Transform BallInitPoint 
+        {
+            get { return _ballInitPoint; }
+        }
+
+        private Camera _mainCamera;
+
+        public Camera MainCamera
+        { 
+            get { return _mainCamera; }
+            set { _mainCamera = value; }
+        }
+
         private Vector3 _leftPoint;
         private Vector3 _rightPoint;
-        [SerializeField] private SpriteRenderer _boardSpriteRenderer;
         private float _mousePositionDelta;
         private Vector2 _oldMousePosition;
-        [Space]
-        [SerializeField] private Camera _mainCamera;
-        private bool _canMove;
-
+        private string _horizontalAxis = "Horizontal";
 
         public void Start()
         {
-            _canMove = false;
-            var boardSpriteRendererSize = _boardSpriteRenderer.size;
-            var halfBoardSize = boardSpriteRendererSize.x / 2;
-
-            _leftPoint = _mainCamera.ScreenToWorldPoint(new Vector3(0, 0));
-            _leftPoint.x += halfBoardSize;
-            _rightPoint = _mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, 0));
-            _rightPoint.x -= halfBoardSize;
+            CountPlatformSize();
         }
 
         public void FixedUpdate()
         {
-            //с лекции
-            //_rb.MovePosition(UseKeyboard());
-            //_rb.MovePosition(UseMouse());
+            var oldPosition = transform.position;
+            var mouseWorldPosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition).x;
+            mouseWorldPosition = Mathf.Clamp(mouseWorldPosition, _leftPoint.x, _rightPoint.x); ;
+            oldPosition.x = mouseWorldPosition;
+            transform.position = oldPosition;
+        }
 
-            //координаты платформы по 0x соответствуют координатам мышки на игровом экране
-            //платформа не движетс€, пока не полктит м€ч
-            if (Input.GetMouseButtonDown(0))
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.TryGetComponent(out BallController ball))
             {
-                _canMove = true;
+                CountPlatformSize();
+                BallTochedPlatform?.Invoke();
             }
+        }
 
-            //?
-            if (_canMove)
-            {
-                var oldPosition = transform.position;
-                var mouseWorldPosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition).x;
-                mouseWorldPosition = Mathf.Clamp(mouseWorldPosition, _leftPoint.x, _rightPoint.x); ;
-                oldPosition.x = mouseWorldPosition;
-                transform.position = oldPosition;
-            }
+        public void CountPlatformSize()
+        {
+            var platformSpriteRendererSize = _platformSpriteRenderer.size;
+            var halfPlatformSize = platformSpriteRendererSize.x / 2;
+
+            _leftPoint = _mainCamera.ScreenToWorldPoint(new Vector3(0, 0));
+            _leftPoint.x += halfPlatformSize;
+            _rightPoint = _mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, 0));
+            _rightPoint.x -= halfPlatformSize;
+
+            Debug.Log($"_leftPoint.x = {_leftPoint.x} _rightPoint.x ={_rightPoint.x}");
         }
 
         public Vector3 UseKeyboard()
         {
-            var axis = Input.GetAxisRaw("Horizontal");
+            var axis = Input.GetAxisRaw(_horizontalAxis);
 
             var newPosition = transform.position;
             newPosition.x += _speed * Time.deltaTime * axis;

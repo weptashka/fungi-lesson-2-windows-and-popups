@@ -1,50 +1,77 @@
-//using System;
-//using UnityEngine;
+using System;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
-//namespace Assets.Scripts.Arkanoid
-//{
-//    public class LevelLoader : MonoBehaviour
-//    {
-//        public static event Action LevelClosed;
-//        public static event Action LevelLoaded;
+namespace Assets.Scripts.Arkanoid
+{
+    public class LevelLoader : MonoBehaviour
+    {
+        public static event Action LevelClosed;
+        public static event Action LevelLoaded;
 
-//        [SerializeField] private Transform _levelParent;
+        public static LevelLoader Instance;
 
-//        public static LevelLoader Instance;
+        private readonly string _scenesPath = "Assets/Scenes/";
 
-//        private GameObject _currentLevel;
-//        private LevelSettings _levelSettings;
+        [SerializeField] private Transform _levelParent;
 
-//        public GameObject CurrentLevel => _currentLevel;
+        private GameObject _currentLevel;
+        public GameObject CurrentLevel => _currentLevel;
 
 
-//        public void Init()
-//        {
-//            if (Instance == null)
-//            {
-//                Instance = this;
-//            }
-//        }
+        private int _currentLevelIndex = -1;
 
-//        public void LoadLevel(int levelIndex)
-//        {
-//            if (_currentLevel)
-//            {
-//                Destroy(_currentLevel);
-//                LevelClosed?.Invoke();
-//            }
+        public void Init()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+        }
 
-//            _currentLevel = Instantiate(_levelSettings.Levels[levelIndex], _levelParent);
-//            LevelLoaded?.Invoke();
-//        }
+        public void LoadScene(string sceneName)
+        {
+            SceneManager.LoadScene(_scenesPath + sceneName + ".unity");
+        }
 
-//        public void HideLevel()
-//        {
-//            _currentLevel.SetActive(false);
+        public void LoadLevel(int levelIndex)
+        {
+            if (_currentLevel)
+            {
+                Destroy(_currentLevel);
+                LevelClosed?.Invoke();
+            }
 
-//            LevelClosed?.Invoke();
-//        }
+            _currentLevel = Instantiate(SettingsManager.Instance.LevelSettings.LevelPrefabs[levelIndex], _levelParent);
+            LevelLoaded?.Invoke();
 
-//    }
-//}
+            _currentLevelIndex = levelIndex;
+        }
+
+        public void ReloadLevel()
+        {
+            if (_currentLevelIndex == -1)
+            {
+                return;
+            }
+
+            if (_currentLevel)
+            {
+                Destroy(_currentLevel);
+                LevelClosed?.Invoke();
+            }
+
+            _currentLevel = Instantiate(SettingsManager.Instance.LevelSettings.LevelPrefabs[_currentLevelIndex], _levelParent);
+            LevelLoaded?.Invoke();
+        }
+
+        public void HideLevel()
+        {
+            _currentLevel.SetActive(false);
+
+            LevelClosed?.Invoke();
+        }
+
+    }
+}

@@ -20,9 +20,11 @@ MonoBehaviour:
   _blockPresets:
   - _blockType: 0
     _blockSprite: {fileID: 21300000, guid: 7c973dcc70b70aa46ace291801ab542a, type: 3}
-    _hitNumberForDestroy: 4
+    _hitNumberForDestroy: 2
     _blockHitpoints: 3
+    _isGeneratesBonus: 1
   - _blockType: 2
     _blockSprite: {fileID: 21300000, guid: 0b65ccd199d336d4bb8946c15be9c3fd, type: 3}
-    _hitNumberForDestroy: 5
+    _hitNumberForDestroy: 2
     _blockHitpoints: 10
+    _isGeneratesBonus: 0

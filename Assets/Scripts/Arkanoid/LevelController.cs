@@ -2,27 +2,34 @@ using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
 
-
 namespace Assets.Scripts.Arkanoid
 {
     public class LevelController : MonoBehaviour
     {
+        //public static LevelController Instance;
+
+        //public void Init()
+        //{
+        //    if (Instance == null)
+        //    {
+        //        Instance = this;
+        //    }
+        //}
+
         public static event Action<int> ScoreChanged;
         public static event Action<int> LifesChanged;
         public static event Action<int> LifesSetted;
 
-
-        [SerializeField] private GameObject _gameContent;
+        //[SerializeField] private GameObject _gameContent;
         [Min(3)]
         [SerializeField] private int _lifesOnStart;
 
         private int _score;
         private int _lifes;
 
-
         private void Awake()
         {
-            _gameContent.SetActive(false);
+            //_gameContent.SetActive(false);
         }
 
         private void OnEnable()
@@ -33,8 +40,6 @@ namespace Assets.Scripts.Arkanoid
             FailPopup.RestartedLevel += FailPopupOnRestartedLevel;
             FailPopup.QuitedLevel += FailPopupOnQuitedLevel;
             PausePopup.QuitedLevel += PausePopupOnQuitedLevel;
-            GameWindow.PausedGame += PausePopupOnPausedGame;
-            PausePopup.StartedGame += PausePopupOnStartedGame;
         }
 
         private void OnDisable()
@@ -45,18 +50,17 @@ namespace Assets.Scripts.Arkanoid
             FailPopup.RestartedLevel -= FailPopupOnRestartedLevel;
             FailPopup.QuitedLevel -= FailPopupOnQuitedLevel;
             PausePopup.QuitedLevel -= PausePopupOnQuitedLevel;
-            GameWindow.PausedGame -= PausePopupOnPausedGame;
-            PausePopup.StartedGame -= PausePopupOnStartedGame;
         }
 
         private void StartWindowOnLevelStarted()
         {
             _score = 0;
             ScoreChanged?.Invoke(_score);
+
             _lifes = _lifesOnStart;
             LifesSetted?.Invoke(_lifes);
 
-            _gameContent.SetActive(true);
+            //_gameContent.SetActive(true);
         }
 
         private void DestroyableBlockOnDestroyed(int blockHitPoints)
@@ -73,45 +77,27 @@ namespace Assets.Scripts.Arkanoid
             if (_lifes <= 0)
             {
                 UISystem.Instance.OpenWindow(WindowType.Fail, true);
-                _gameContent.SetActive(false);
+                //_gameContent.SetActive(false);
             }
         }
 
         private void FailPopupOnRestartedLevel()
         {
-            //???
-            UISystem.Instance.Close(WindowType.Fail);
-            SceneManager.LoadScene("GameScene");
-            //потому что не из SelectStage выбираем уровень, приходится самим вызывать
+            LevelLoader.Instance.ReloadLevel();
             StartWindowOnLevelStarted();
             UISystem.Instance.OpenWindow(WindowType.Game, false);
-            Debug.Log("RESTART");
         }
 
         private void FailPopupOnQuitedLevel()
         {
-            SceneManager.LoadScene("GameScene");
+            LevelLoader.Instance.HideLevel();
             UISystem.Instance.OpenWindow(WindowType.Start, false);
-            Debug.Log("QUIT");
-        }
-
-        private void PausePopupOnPausedGame()
-        {
-            UISystem.Instance.OpenWindow(WindowType.Pause, true);
-            Debug.Log("PAUSE");
-        }
-
-        private void PausePopupOnStartedGame()
-        {
-            UISystem.Instance.Close(WindowType.Pause);
-            Debug.Log("UNPAUSE");
         }
 
         private void PausePopupOnQuitedLevel()
         {
-            SceneManager.LoadScene("GameScene");
+            LevelLoader.Instance.HideLevel();
             UISystem.Instance.OpenWindow(WindowType.SelectStage, false);
-            Debug.Log("QUIT TO LEVELS FROM PAUSE");
         }
     }
 }

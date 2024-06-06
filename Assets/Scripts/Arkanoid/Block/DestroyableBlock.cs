@@ -7,35 +7,39 @@ namespace Assets.Scripts.Arkanoid
     {
         public static event Action<int> Destroyed;
 
-        //[SerializeField] protected int _blockHitPoints;
-        //[Min(1)]
-        //[SerializeField] protected int _hitNumberForDestroy;
-        //[Space]
-        //[SerializeField] protected Sprite[] _spritesRef;
-
-        [SerializeField] protected SpriteRenderer _blockRenderer;
-        [SerializeField] protected SpriteRenderer _crackRenderer;
+        [SerializeField] private SpriteRenderer _blockRenderer;
+        [SerializeField] private SpriteRenderer _crackRenderer;
+        [SerializeField] private PickableController _pickableController;
         [SerializeField] private BlockType _blockType;
 
         private Sprite[] _sprites;
         private BlockPreset _blockSetting;
-
         private int _blockHitPoints;
         private int _hitNumberForDestroy;
 
+        [field: SerializeField]
+        public bool IsGeneratesBonus
+        { 
+            get; 
+            private set; 
+        }
+
         public override BlockType Type => BlockType.Destroyable;
 
-
-        public virtual void Start()
+        public virtual void Awake()
         {
-            //_sprites = _spritesRef;
-
             _sprites = SettingsManager.Instance.BlockSettings.Sprites;
 
             _blockSetting = SettingsManager.Instance.BlockSettings.GetPresetByBlockType(_blockType);
             _blockHitPoints = _blockSetting.BlockHitpoints;
             _hitNumberForDestroy = _blockSetting.HitNumberForDestroy;
             _blockRenderer.sprite = _blockSetting.BlockSprite;
+            IsGeneratesBonus = _blockSetting.IsGeneratedBonus;
+        }
+
+        public void Setup(PickableController pickableController)
+        {
+            _pickableController = pickableController;
         }
 
         public virtual void OnCollisionEnter2D(Collision2D collision)
@@ -50,6 +54,10 @@ namespace Assets.Scripts.Arkanoid
                     {
                         gameObject.SetActive(false);
                         Destroyed?.Invoke(_blockHitPoints);
+                        if (IsGeneratesBonus)
+                        {
+                            _pickableController.OnBlockDestroyed(transform.position);
+                        }
                     }
                     else
                     {
